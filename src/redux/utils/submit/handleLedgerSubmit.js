@@ -12,6 +12,8 @@ export const handleLedgerSubmit = async (e, mode, ledger, dispatch, navigate, da
                 ...transaction,
                 debitAmount: parseFloat(String(transaction.debitAmount || '0').replace(/,/g, '')) || 0,
                 creditAmount: parseFloat(String(transaction.creditAmount || '0').replace(/,/g, '')) || 0,
+                costCenterAmountDebit: parseFloat(String(transaction.costCenterAmountDebit || '0').replace(/,/g, '')) || 0,
+                costCenterAmountCredit: parseFloat(String(transaction.costCenterAmountCredit || '0').replace(/,/g, '')) || 0,
             })) || [],
         };
         if (mode === 'create') {
