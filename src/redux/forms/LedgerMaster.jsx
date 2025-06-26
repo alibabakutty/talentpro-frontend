@@ -121,7 +121,7 @@ const LedgerMaster = () => {
   return (
     <>
       <div className="bg-[#493D9E] mt-10">
-        <div className="w-[1229px] h-[86.5vh]">
+        <div className="w-[1229px] h-[78vh]">
           <table className="border border-slate-400 w-full">
             <thead className="text-[10px]">
               <tr className="border-t border-b border-slate-400">
@@ -380,6 +380,44 @@ const LedgerMaster = () => {
             </tbody>
           </table>
         </div>
+        <div className="h-[8vh] ">
+          <div className='flex border border-double border-t border-slate-400 border-l-0 border-r-0 mt-1.5'>
+            <h2 className="ml-[330px]">Totals</h2>
+            <span className='ml-1'>:</span>
+            <input
+              type="text"
+              name='totalDebitAmount'
+              value={ledger.totalDebitAmountFormatted || ''}
+              className="w-[100px] pl-0.5 ml-14 font-medium text-[12px] capitalize focus:bg-yellow-200 focus:outline-none focus:border-blue-500 focus:border border border-transparent"
+              autoComplete="off"
+              readOnly
+            />
+            <input
+              type="text"
+              name='totalCreditAmount'
+              value={ledger.totalCreditAmountFormatted || ''}
+              className="w-[100px] pl-0.5 ml-2 font-medium text-[12px] capitalize focus:bg-yellow-200 focus:outline-none focus:border-blue-500 focus:border border border-transparent"
+              autoComplete="off"
+              readOnly
+            />
+            <input
+              type="text"
+              name='totalCostCenterAmountDebit'
+              value={ledger.totalCostCenterAmountDebitFormatted || ''}
+              className="w-[100px] pl-0.5 ml-[260px] font-medium text-[12px] capitalize focus:bg-yellow-200 focus:outline-none focus:border-blue-500 focus:border border border-transparent"
+              autoComplete="off"
+              readOnly
+            />
+            <input
+              type="text"
+              name='totalCostCenterAmountCredit'
+              value={ledger.totalCostCenterAmountCreditFormatted || ''}
+              className="w-[100px] pl-0.5 ml-[80px] font-medium text-[12px] capitalize focus:bg-yellow-200 focus:outline-none focus:border-blue-500 focus:border border border-transparent"
+              autoComplete="off"
+              readOnly
+            />
+          </div>
+        </div>
         <div className="h-[6vh] flex items-center justify-center text-sm">
           <button
             onClick={handleSubmit}
@@ -393,7 +431,5 @@ const LedgerMaster = () => {
     </>
   );
 };
-
-
 
 export default LedgerMaster;

@@ -1,11 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchLedger } from '../thunks/ledgerThunks';
 import { formatINRWithIndex } from '../utils/rupee-format/formatINRWithIndex';
+import { calculateTotals } from '../utils/calculations/calculateTotals';
 
 // initial state
 const initialState = {
   ledger: {
     ledgerTime: '',
+    totalDebitAmount: '',
+    totalDebitAmountFormatted: '',
+    totalCreditAmount: '',
+    totalCreditAmountFormatted: '',
+    totalCostCenterAmountDebit: '',
+    totalCostCenterAmountDebitFormatted: '',
+    totalCostCenterAmountCredit: '',
+    totalCostCenterAmountCreditFormatted: '',
     ledgerTransactions: [
       {
         serialNumber: '',
@@ -100,6 +109,8 @@ const ledgerSlice = createSlice({
             row.debitAmount = numericValue.toFixed(2);
             row.debitAmountFormatted = formatINRWithIndex(numericValue, index, 'debitAmount').formattedValue;
         }
+        // Recalculate totals
+        Object.assign(state.ledger, calculateTotals(state.ledger.ledgerTransactions));
     },
     formatCreditAmount: (state, action) => {
         const index = action.payload;
@@ -117,6 +128,8 @@ const ledgerSlice = createSlice({
             row.creditAmount = numericValue.toFixed(2);
             row.creditAmountFormatted = formatINRWithIndex(numericValue, index, 'creditAmount').formattedValue;
         }
+        // Recalculate totals
+        Object.assign(state.ledger, calculateTotals(state.ledger.ledgerTransactions));
     },
     formatCostCenterDebitAmount: (state, action) => {
         const index = action.payload;
@@ -134,6 +147,8 @@ const ledgerSlice = createSlice({
             row.costCenterAmountDebit = numericValue.toFixed(2);
             row.costCenterAmountDebitFormatted = formatINRWithIndex(numericValue, index, 'costCenterAmountDebit').formattedValue;
         }
+        // Recalculate totals
+        Object.assign(state.ledger, calculateTotals(state.ledger.ledgerTransactions));
     },
     formatCostCenterCreditAmount: (state, action) => {
         const index = action.payload;
@@ -151,6 +166,8 @@ const ledgerSlice = createSlice({
             row.costCenterAmountCredit = numericValue.toFixed(2);
             row.costCenterAmountCreditFormatted = formatINRWithIndex(numericValue, index, 'costCenterAmountDebit').formattedValue;
         }
+        // Recalculate totals
+        Object.assign(state.ledger, calculateTotals(state.ledger.ledgerTransactions));
     }
   },
   extraReducers: builder => {

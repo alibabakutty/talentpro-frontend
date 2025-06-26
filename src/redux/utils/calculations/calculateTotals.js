@@ -1,10 +1,12 @@
-export const calculateTotals = ledgerTransactions => {
+import { formatINRWithIndex } from "../rupee-format/formatINRWithIndex";
+
+export const calculateTotals = (ledgerTransactions) => {
   let totalDebitAmount = 0;
   let totalCreditAmount = 0;
   let totalCostCenterAmountDebit = 0;
   let totalCostCenterAmountCredit = 0;
 
-  const updatedLedgerTransactions = ledgerTransactions.map((row, index) => {
+  ledgerTransactions.forEach((row) => {
     const debitAmount =
       parseFloat(
         String(row.debitAmount || '')
@@ -34,9 +36,16 @@ export const calculateTotals = ledgerTransactions => {
     totalCreditAmount += creditAmount;
     totalCostCenterAmountDebit += costCenterAmountDebit;
     totalCostCenterAmountCredit += costCenterAmountCredit;
-
-    return {
-        
-    };
   });
+
+  return {
+    totalDebitAmount: totalDebitAmount.toFixed(2),
+    totalDebitAmountFormatted: formatINRWithIndex(totalDebitAmount),
+    totalCreditAmount: totalCreditAmount.toFixed(2),
+    totalCreditAmountFormatted: formatINRWithIndex(totalCreditAmount),
+    totalCostCenterAmountDebit: totalCostCenterAmountDebit.toFixed(2),
+    totalCostCenterAmountDebitFormatted: formatINRWithIndex(totalCostCenterAmountDebit),
+    totalCostCenterAmountCredit: totalCostCenterAmountCredit.toFixed(2),
+    totalCostCenterAmountCreditFormatted: formatINRWithIndex(totalCostCenterAmountCredit),
+  };
 };
